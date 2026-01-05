@@ -346,6 +346,13 @@ header {
     align-items: center;
     justify-content: center;
     padding: 12px 5px;
+    flex-direction: column;
+    /* Allow vertical stacking */
+}
+
+/* Hidden by default on Desktop */
+.mobile-label {
+    display: none;
 }
 
 .day-cell {
