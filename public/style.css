@@ -577,6 +577,7 @@ header {
 @media (max-width: 768px) {
     body {
         padding: 0.5rem;
+        background-attachment: scroll;
     }
 
     .app-container {
@@ -596,61 +597,11 @@ header {
     }
 
     .stat-card {
-        flex: 1;
-        /* Equal width stats */
-        min-width: 0;
-        /* Prevent overflow */
         padding: 8px 10px;
+        min-width: 0;
     }
 
     .stat-card .value {
-        font-size: 1rem;
-    }
-
-    /* Fix Tracker Scroll */
-    .table-scroll-container {
-        /* Snap to start of columns */
-        scroll-snap-type: x proximity;
-        padding-bottom: 5px;
-        /* Space for scrollbar */
-    }
-
-    .table-header .col,
-    .tracker-row .cell {
-        /* Improve touch targets */
-        min-height: 50px;
-    }
-
-    /* Make Day Column Sticky & Readable */
-    .col.day,
-    .cell.day-cell {
-        min-width: 90px;
-        background: #FDFDFD;
-        /* Ensure opacity over scrolling content */
-        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
-        /* Tiny shadow to show separation */
-    }
-
-    /* Widgets Stack */
-    .widgets-grid {
-        grid-template-columns: 1fr;
-        /* Force single column */
-    }
-
-    /* Fix Baby Hero for Mobile */
-    .right-column {
-        order: 10;
-        /* Ensure it's last (or change if user wants top) */
-        height: auto;
-    }
-
-    .motivation-card.full-height {
-        min-height: 250px;
-        /* Reduced specific height for mobile */
-        height: 250px;
-    }
-
-    .motivation-overlay h3 {
         font-size: 1rem;
     }
 
@@ -658,17 +609,143 @@ header {
         font-size: 1.2rem;
     }
 
-    .stat-card {
-        flex: 1;
-        text-align: center;
+    /* --- Tracker: Card View Transformation --- */
+    .table-header {
+        display: none;
     }
 
+    .tracker-wrapper {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        overflow: visible;
+    }
+
+    .table-scroll-container {
+        padding-bottom: 0;
+        overflow: visible;
+    }
+
+    /* Card Style for Row */
+    .tracker-row {
+        display: grid;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        padding: 15px;
+        margin-bottom: 12px !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid white;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px 5px;
+        align-items: start;
+    }
+
+    .tracker-row.active {
+        border: 2px solid var(--primary-color);
+        background: #fff;
+        transform: scale(1.01);
+        box-shadow: 0 8px 15px rgba(0, 135, 90, 0.15);
+    }
+
+    /* Day Title */
+    .cell.day-cell {
+        grid-column: 1 / -1;
+        justify-content: space-between;
+        font-size: 1.1rem;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 5px;
+        color: var(--primary-color);
+        background: transparent;
+        box-shadow: none;
+        position: static;
+        min-width: auto;
+    }
+
+    .today-indicator {
+        position: static;
+        transform: none;
+        font-size: 0.7rem;
+        padding: 3px 8px;
+    }
+
+    /* Task Cells */
     .cell {
-        padding: 8px 2px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0;
+        min-height: auto;
+        border: none;
     }
 
+    /* Labels */
+    .cell::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 0.65rem;
+        color: #718096;
+        margin-bottom: 4px;
+        font-weight: 500;
+        height: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+
+    .cell[data-label="Day"]::before {
+        display: none;
+    }
+
+    /* Checkboxes */
     .check-input {
-        width: 18px;
-        height: 18px;
+        width: 28px;
+        height: 28px;
+    }
+
+    .check-input:checked::after {
+        font-size: 18px;
+        top: 1px;
+        left: 5px;
+    }
+
+    /* Score & Status */
+    .cell[data-label="Score"],
+    .cell[data-label="Status"] {
+        grid-column: span 2;
+        margin-top: 5px;
+        background: #F7FAFC;
+        padding: 8px;
+        border-radius: 8px;
+        flex-direction: row;
+        gap: 6px;
+        justify-content: center;
+    }
+
+    .cell[data-label="Score"]::before,
+    .cell[data-label="Status"]::before {
+        margin-bottom: 0;
+        margin-right: 5px;
+    }
+
+    /* Widgets */
+    .widgets-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .right-column {
+        order: 10;
+        height: auto;
+    }
+
+    .motivation-card.full-height {
+        min-height: 200px;
+        height: 200px;
+    }
+
+    .motivation-overlay h3 {
+        font-size: 1rem;
     }
 }
