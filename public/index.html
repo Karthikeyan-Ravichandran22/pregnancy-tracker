@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregnancy Pro-Tracker | Week 19</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <div class="header-left">
+                <h1>Mommytos <span class="badge">Week 19</span></h1>
+                <p class="subtitle">Pro-Level Tracker • Thyroid & Nutrition Mode</p>
+            </div>
+            <div class="header-right">
+                <div class="stat-card">
+                    <span class="label">Current Weight</span>
+                    <span class="value">51.7 kg</span>
+                </div>
+                <div class="stat-card highlight">
+                    <span class="label">Today's Score</span>
+                    <span class="value" id="today-score">0 / 100</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Grid -->
+        <main class="dashboard-grid">
+
+            <!-- LEFT COLUMN: Planner + Widgets -->
+            <div class="left-column">
+
+                <!-- 1. The Main Planner (Tracker) -->
+                <div class="tracker-wrapper">
+                    <div class="table-scroll-container">
+                        <div class="table-header">
+                            <div class="col day">Day</div>
+                            <div class="col thyroid" title="Thyroid (Empty Stomach)">💊 Thyroid</div>
+                            <div class="col slot">6:30 AM<br><span>Milk</span></div>
+                            <div class="col slot">8:30 AM<br><span>Bkfst</span></div>
+                            <div class="col meds" title="Iron/Calcium after food">💊 Meds</div>
+                            <div class="col slot">11:30 AM<br><span>Fruit</span></div>
+                            <div class="col slot">1:30 PM<br><span>Lunch</span></div>
+                            <div class="col slot">4:30 PM<br><span>Snack</span></div>
+                            <div class="col slot">7:30 PM<br><span>Dinner</span></div>
+                            <div class="col meds" title="Iron/Calcium after food">💊 Meds</div>
+                            <div class="col slot">9:30 PM<br><span>Milk</span></div>
+                            <div class="col water">Water<br><span>3 Liters</span></div>
+                            <div class="col score">Score</div>
+                            <div class="col status">Status</div>
+                        </div>
+
+                        <div id="tracker-body" class="tracker-body">
+                            <!-- Rows injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Widgets Container (Water, Menu, etc.) - placed BELOW Planner -->
+                <div class="widgets-grid">
+
+                    <!-- Water Tracker -->
+                    <div class="dashboard-card water-card">
+                        <h3>💧 Water Intake (3L Goal)</h3>
+                        <div class="water-widget">
+                            <div class="water-controls">
+                                <button class="btn-circle" onclick="adjustWater(-0.5)">-</button>
+                                <span id="water-count" class="water-stat">0 / 3 L</span>
+                                <button class="btn-circle" onclick="adjustWater(0.5)">+</button>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div id="water-progress" class="progress-bar-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Menu Plan -->
+                    <div class="dashboard-card menu-card">
+                        <h3>🍱 Today's Menu <span id="menu-day-badge"></span></h3>
+                        <div id="daily-menu-content"></div>
+                    </div>
+
+                    <!-- Weight Tracker -->
+                    <div class="dashboard-card weight-card">
+                        <h3>⚖️ Weight Log (kg)</h3>
+                        <div class="weight-input-group">
+                            <input type="number" id="weight-input" class="input-field" placeholder="e.g. 51.7"
+                                step="0.1">
+                            <button class="btn-primary" onclick="logWeight()">Log</button>
+                        </div>
+                        <div id="weight-history" class="weight-history-list"></div>
+                    </div>
+
+                    <!-- Charts -->
+                    <div class="dashboard-card chart-container">
+                        <h3>Weekly Score Trend</h3>
+                        <canvas id="consistencyChart"></canvas>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Baby Photo ONLY -->
+            <div class="right-column">
+                <div class="dashboard-card motivation-card full-height">
+                    <img src="images/baby_motivation.png" alt="Little One" class="baby-hero-img">
+                    <div class="motivation-overlay">
+                        <h3>Motivation ❤️</h3>
+                        <p>"Eat healthy for me, Amma!"</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Notification / Toast -->
+    <div id="toast" class="toast hidden">
+        <span id="toast-icon">✨</span>
+        <span id="toast-message">Task Completed!</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

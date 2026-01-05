@@ -1,0 +1,599 @@
+:root {
+    --bg-overlay: rgba(255, 255, 255, 0.85);
+    /* Light overlay to make text readable */
+    --surface-glass: rgba(255, 255, 255, 0.7);
+    /* Glassy card effect */
+    --primary-color: #2F855A;
+    /* Deep Green */
+    --primary-light: #F0FFF4;
+    --secondary-color: #2D3748;
+    --accent-color: #D69E2E;
+    --danger-color: #E53E3E;
+    --text-main: #1A202C;
+    --text-light: #4A5568;
+    --border: rgba(255, 255, 255, 0.6);
+    --card-radius: 20px;
+    --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    /* Hero Background Image */
+    background: url('images/baby_motivation.png') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    /* Soften the image so text pops */
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-overlay);
+    backdrop-filter: blur(8px);
+    /* Blur the bg image for readability */
+    z-index: -1;
+}
+
+/* Glassmorphism Container */
+.app-container {
+    width: 100%;
+    max-width: 1600px;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* --- Header Section --- */
+header {
+    background: var(--surface-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    padding: 1.2rem 2rem;
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.header-left h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+.header-right {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(4px);
+    padding: 8px 16px;
+    border-radius: 12px;
+    text-align: right;
+    min-width: 120px;
+}
+
+.stat-card.highlight {
+    background: rgba(240, 255, 244, 0.85);
+    /* Green tint */
+    border-color: #C6F6D5;
+}
+
+.stat-card .label {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-card .value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.stat-card.highlight .value {
+    color: var(--primary-color);
+}
+
+/* --- Main Dashboard Layout (New Hero Style) --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+/* Left Column: Contains Planner & Widgets */
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Widgets Grid: A sub-grid for Water, Menu, etc. */
+.widgets-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .widgets-grid {
+        grid-template-columns: 1fr 1fr;
+        /* 2 columns for widgets on tablet/desktop */
+    }
+
+    .menu-card {
+        grid-row: span 2;
+    }
+
+    /* Menu is tall, let it span if needed */
+}
+
+/* Right Column: Baby Hero */
+.right-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.motivation-card.full-height {
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    height: 100%;
+    min-height: 400px;
+    /* On mobile, give it nice height */
+    border-radius: var(--card-radius);
+    background: var(--surface-glass);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    /* Fix for image fill */
+}
+
+.baby-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.motivation-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
+    padding: 20px 15px;
+}
+
+.motivation-overlay h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #fff;
+    border: none;
+}
+
+.motivation-overlay p {
+    opacity: 0.9;
+    font-style: italic;
+}
+
+/* Desktop Grid: Left (Content) vs Right (Hero Image) */
+@media (min-width: 1200px) {
+    .dashboard-grid {
+        grid-template-columns: 3fr 1fr;
+        /* Content 75%, Baby 25% */
+        align-items: stretch;
+    }
+
+    .right-column {
+        position: sticky;
+        /* Keep baby visible */
+        top: 20px;
+        height: calc(100vh - 40px);
+    }
+
+    .motivation-card.full-height {
+        height: 100%;
+    }
+}
+
+/* --- Tracker Table Wrapper fixes --- */
+.tracker-wrapper {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Responsive Table with Horizontal Scroll */
+.table-scroll-container {
+    overflow-x: auto;
+    width: 100%;
+    /* Custom Scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E0 transparent;
+}
+
+.table-header,
+.tracker-row {
+    display: grid;
+    /* Fixed widths for consistency. Total min-width ~1200px */
+    grid-template-columns:
+        100px
+        /* Day (Sticky) */
+        80px
+        /* Thyroid */
+        80px
+        /* Milk AM */
+        80px
+        /* Bkfst */
+        60px
+        /* Meds AM */
+        80px
+        /* Fruit */
+        80px
+        /* Lunch */
+        80px
+        /* Snack */
+        80px
+        /* Dinner */
+        60px
+        /* Meds PM */
+        80px
+        /* Milk PM */
+        80px
+        /* Water */
+        80px
+        /* Score */
+        100px;
+    /* Status */
+    min-width: 1100px;
+    /* Force scroll on small screens */
+}
+
+.table-header {
+    background: rgba(247, 250, 252, 0.9);
+    border-bottom: 2px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.table-header .col {
+    padding: 12px 5px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-light);
+}
+
+.tracker-row {
+    border-bottom: 1px solid var(--border);
+}
+
+.tracker-row:hover {
+    background-color: #FAFAFA;
+}
+
+.tracker-row.active {
+    background-color: #fff;
+    box-shadow: inset 4px 0 0 var(--primary-color);
+}
+
+/* Sticky Day Column */
+.col.day,
+.cell.day-cell {
+    position: sticky;
+    left: 0;
+    background: inherit;
+    /* Matches row bg */
+    z-index: 10;
+    border-right: 1px solid var(--border);
+}
+
+.active .cell.day-cell {
+    background: #fff;
+}
+
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 5px;
+}
+
+.day-cell {
+    font-weight: 600;
+    font-size: 0.9rem;
+    justify-content: flex-start;
+    padding-left: 15px;
+    color: var(--secondary-color);
+}
+
+.today-indicator {
+    font-size: 0.6rem;
+    background: var(--primary-color);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 6px;
+}
+
+/* Checkboxes */
+.check-input {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #CBD5E0;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.check-input:checked {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.check-input.meds:checked {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.check-input:checked::after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    top: 0;
+    left: 3px;
+}
+
+.status-cell {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.status-perfect {
+    background: #C6F6D5;
+    color: #22543D;
+}
+
+.status-good {
+    background: #BEE3F8;
+    color: #2A4365;
+}
+
+.status-pending {
+    background: #EDF2F7;
+    color: #718096;
+}
+
+
+/* --- Right Column: Widgets --- */
+.insights-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.dashboard-card {
+    background: var(--surface-color);
+    padding: 1.25rem;
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+}
+
+.dashboard-card h3 {
+    font-size: 0.95rem;
+    color: var(--secondary-color);
+    border-bottom: 2px solid #F0F4F8;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+/* Menu Widget */
+.menu-card {
+    background: #fff5f5;
+    border-color: #FED7D7;
+}
+
+.detailed-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 10px;
+    font-size: 0.85rem;
+    border-bottom: 1px dashed #FECACA;
+    padding-bottom: 6px;
+}
+
+.menu-row:last-child {
+    border: none;
+}
+
+.menu-time-label {
+    color: #C53030;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.menu-meal-text {
+    color: #2D3748;
+    line-height: 1.4;
+}
+
+/* Water Widget */
+.water-card {
+    background: #E6FFFA;
+    border-color: #B2F5EA;
+}
+
+.water-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.btn-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: white;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.1s;
+}
+
+.btn-circle:active {
+    transform: scale(0.95);
+}
+
+.water-stat {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #2C7A7B;
+}
+
+/* Weight Widget */
+.weight-input-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.input-field {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background: #DD6B20;
+    color: white;
+    border: none;
+    padding: 0 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Chart */
+.chart-container {
+    height: 250px;
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2D3748;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    z-index: 100;
+    transition: all 0.3s;
+    opacity: 1;
+}
+
+.toast.hidden {
+    transform: translate(-50%, 20px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Mobile Tweaks */
+@media (max-width: 768px) {
+    body {
+        padding: 0.5rem;
+    }
+
+    .header-left h1 {
+        font-size: 1.2rem;
+    }
+
+    .stat-card {
+        flex: 1;
+        text-align: center;
+    }
+
+    .cell {
+        padding: 8px 2px;
+    }
+
+    .check-input {
+        width: 18px;
+        height: 18px;
+    }
+}
