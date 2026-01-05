@@ -1,0 +1,16 @@
+{
+    "name": "MommyTas Pregnancy Tracker",
+    "short_name": "MommyTas",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#F0F4F8",
+    "theme_color": "#2F855A",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "images/baby_motivation.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
