@@ -579,6 +579,81 @@ header {
         padding: 0.5rem;
     }
 
+    .app-container {
+        gap: 1rem;
+    }
+
+    header {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .stat-card {
+        flex: 1;
+        /* Equal width stats */
+        min-width: 0;
+        /* Prevent overflow */
+        padding: 8px 10px;
+    }
+
+    .stat-card .value {
+        font-size: 1rem;
+    }
+
+    /* Fix Tracker Scroll */
+    .table-scroll-container {
+        /* Snap to start of columns */
+        scroll-snap-type: x proximity;
+        padding-bottom: 5px;
+        /* Space for scrollbar */
+    }
+
+    .table-header .col,
+    .tracker-row .cell {
+        /* Improve touch targets */
+        min-height: 50px;
+    }
+
+    /* Make Day Column Sticky & Readable */
+    .col.day,
+    .cell.day-cell {
+        min-width: 90px;
+        background: #FDFDFD;
+        /* Ensure opacity over scrolling content */
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+        /* Tiny shadow to show separation */
+    }
+
+    /* Widgets Stack */
+    .widgets-grid {
+        grid-template-columns: 1fr;
+        /* Force single column */
+    }
+
+    /* Fix Baby Hero for Mobile */
+    .right-column {
+        order: 10;
+        /* Ensure it's last (or change if user wants top) */
+        height: auto;
+    }
+
+    .motivation-card.full-height {
+        min-height: 250px;
+        /* Reduced specific height for mobile */
+        height: 250px;
+    }
+
+    .motivation-overlay h3 {
+        font-size: 1rem;
+    }
+
     .header-left h1 {
         font-size: 1.2rem;
     }
