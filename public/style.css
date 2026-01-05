@@ -581,6 +581,7 @@ header {
 }
 
 /* Mobile Tweaks */
+/* Mobile Tweaks */
 @media (max-width: 768px) {
     body {
         padding: 0.5rem;
@@ -591,10 +592,10 @@ header {
         gap: 1rem;
     }
 
+    /* Header Fixes */
     header {
         padding: 1rem;
         flex-direction: column;
-        align-items: flex-start;
         gap: 15px;
     }
 
@@ -604,19 +605,16 @@ header {
     }
 
     .stat-card {
-        padding: 8px 10px;
-        min-width: 0;
-    }
-
-    .stat-card .value {
-        font-size: 1rem;
+        padding: 8px;
+        flex: 1;
+        text-align: center;
     }
 
     .header-left h1 {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
 
-    /* --- Tracker: Card View Transformation --- */
+    /* --- List View (Cards) --- */
     .table-header {
         display: none;
     }
@@ -629,112 +627,118 @@ header {
     }
 
     .table-scroll-container {
-        padding-bottom: 0;
         overflow: visible;
+        padding: 0;
     }
 
-    /* Card Style for Row */
+    /* Card Item */
     .tracker-row {
         display: grid;
-        background: rgba(255, 255, 255, 0.95);
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 Columns for Tasks */
+        background: #fff;
         border-radius: 16px;
-        padding: 15px;
-        margin-bottom: 12px !important;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        border: 1px solid white;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px 5px;
-        align-items: start;
+        padding: 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        gap: 15px 10px;
+        position: relative;
     }
 
     .tracker-row.active {
         border: 2px solid var(--primary-color);
-        background: #fff;
-        transform: scale(1.01);
-        box-shadow: 0 8px 15px rgba(0, 135, 90, 0.15);
+        background: #F0FFF4;
+        box-shadow: 0 8px 16px rgba(47, 133, 90, 0.15);
     }
 
-    /* Day Title */
+    /* Day Header (Span Full Width) */
     .cell.day-cell {
         grid-column: 1 / -1;
+        flex-direction: row;
         justify-content: space-between;
-        font-size: 1.1rem;
-        border-bottom: 1px solid #eee;
+        border-bottom: 2px solid #F0F4F8;
         padding-bottom: 10px;
         margin-bottom: 5px;
-        color: var(--primary-color);
+        width: 100%;
+        min-width: auto;
+        position: static;
         background: transparent;
         box-shadow: none;
-        position: static;
-        min-width: auto;
+    }
+
+    .day-name {
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: var(--secondary-color);
     }
 
     .today-indicator {
         position: static;
         transform: none;
-        font-size: 0.7rem;
-        padding: 3px 8px;
+        padding: 4px 10px;
+        font-size: 0.75rem;
     }
 
-    /* Task Cells */
+    /* Task Item */
     .cell {
-        display: flex;
-        flex-direction: column;
+        padding: 0;
+        border: none;
+        gap: 6px;
+        /* Space between Label and Checkbox */
         align-items: center;
         text-align: center;
-        padding: 0;
-        min-height: auto;
-        border: none;
     }
 
-    /* Labels */
-    .cell::before {
-        content: attr(data-label);
+    /* Reveal Labels */
+    .mobile-label {
         display: block;
-        font-size: 0.65rem;
+        font-size: 0.7rem;
         color: #718096;
-        margin-bottom: 4px;
-        font-weight: 500;
-        height: 16px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 100%;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
-    .cell[data-label="Day"]::before {
-        display: none;
+    /* Remove old attr method explicitly */
+    .cell::before {
+        display: none !important;
     }
 
-    /* Checkboxes */
+    /* Bigger Checkboxes */
     .check-input {
-        width: 28px;
-        height: 28px;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
     }
 
     .check-input:checked::after {
-        font-size: 18px;
+        font-size: 20px;
+        left: 6px;
         top: 1px;
-        left: 5px;
     }
 
-    /* Score & Status */
-    .cell[data-label="Score"],
-    .cell[data-label="Status"] {
-        grid-column: span 2;
-        margin-top: 5px;
-        background: #F7FAFC;
-        padding: 8px;
-        border-radius: 8px;
+    /* Score & Status (Full Width at Bottom) */
+    .cell.score-cell,
+    .cell.status-container {
+        grid-column: span 3;
+        /* Full width row */
         flex-direction: row;
-        gap: 6px;
-        justify-content: center;
+        background: #F7FAFC;
+        padding: 10px;
+        border-radius: 8px;
+        justify-content: space-between;
+        width: 100%;
     }
 
-    .cell[data-label="Score"]::before,
-    .cell[data-label="Status"]::before {
-        margin-bottom: 0;
-        margin-right: 5px;
+    .cell.score-cell .mobile-label,
+    .cell.status-container .mobile-label {
+        font-size: 0.85rem;
+        margin: 0;
+    }
+
+    .cell.score-cell span[id^="score"] {
+        font-weight: 800;
+        color: var(--primary-color);
     }
 
     /* Widgets */
@@ -748,8 +752,8 @@ header {
     }
 
     .motivation-card.full-height {
-        min-height: 200px;
-        height: 200px;
+        min-height: 250px;
+        height: 250px;
     }
 
     .motivation-overlay h3 {
